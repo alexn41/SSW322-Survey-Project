@@ -1,7 +1,11 @@
 body{
-    background-color: rgb(32, 32, 89);
+    background-color: white;
 }
 
 .mainheader{
-    color: rgb(203, 101, 0);
+    color: black;
+}
+
+.hiddentext{
+    display: none;
 }
