@@ -6,15 +6,20 @@
     </head>
     <body>
         <h1 class="mainheader">Create a Survey</h1>
-        <button id ="textinp" onclick="hide('hiddentext')">Create Text Input Question</button>
-        <button id ="mcinp">Create Multiple Choice Question</button>
-        <button id ="mainp">Create Multiple Answer Question</button>
-        <br>
-        <br>
+        <button onclick="addTextQuestion()">Add Text Input Question</button>
+        <button onclick="addMultChoiceQuestion()">Add Multiple Choice Question</button>
+        <button onclick="addMultAnswerQuestion()">Add Multiple Answer Question</button><br><br>
         <form>
-            <input id ="hiddentext" type="text">
+            <div id="form">
+                <!-- New input boxes will be added here -->
+            </div>
+            <input type="submit">
         </form>
+        <br>
 
         <button onclick="window.location.href='survey.html'">Back to Home</button>
+        
+        <script src="project.js"></script>
+
     </body>
 </html>
