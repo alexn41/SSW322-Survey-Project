@@ -1,0 +1,14 @@
+body{
+    background-color: white;
+}
+
+.mainheader{
+    color: black;
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
