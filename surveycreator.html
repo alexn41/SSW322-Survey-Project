@@ -2,9 +2,19 @@
 <html>
     <head>
         <link rel="stylesheet" href="styles.css">
+        <script type="text/javascript" src="surveycreator.js"></script>
     </head>
     <body>
         <h1 class="mainheader">Create a Survey</h1>
-        <button onclick="window.location.href='survey.html'">Back to Home Page</button>
+        <button id ="textinp" onclick="hide('hiddentext')">Create Text Input Question</button>
+        <button id ="mcinp">Create Multiple Choice Question</button>
+        <button id ="mainp">Create Multiple Answer Question</button>
+        <br>
+        <br>
+        <form>
+            <input id ="hiddentext" type="text">
+        </form>
+
+        <button onclick="window.location.href='survey.html'">Back to Home</button>
     </body>
 </html>
