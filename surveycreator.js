@@ -11,7 +11,7 @@ function addTextQuestion() {
 
     number.for = "q"+count;
     var text = document.createTextNode("Question "+count);
-    number.appendChild(text)
+    number.appendChild(text);
 
     question.type = "text";
     question.name = "q"+count;
@@ -20,7 +20,7 @@ function addTextQuestion() {
 
     answer.type = "text";
     answer.name = "a"+count;
-    answer.name = "a"+count;
+    answer.id = "a"+count;
     answer.placeholder = "Enter Answer";
 
     form.appendChild(number);
@@ -28,56 +28,90 @@ function addTextQuestion() {
     form.appendChild(question);
     form.appendChild(document.createElement("br"));
     form.appendChild(answer);
-
-    // Optional: Add a line break for better formatting
     form.appendChild(document.createElement("br"));
     form.appendChild(document.createElement("br"));
     count++;
 }
 
 function addMultChoiceQuestion() {
-    // 1. Get the container element where the new input will be added
-    var form = document.getElementById("form");
 
-    // 2. Create a new <input> element
+    var options = document.getElementById("options");
+    var n = options.value;
+
+    var number = document.createElement("label");
     var question = document.createElement("input");
     var answer = document.createElement("input");
 
-    // 3. Set the attributes for the input element
+    number.for = "q"+count;
+    var text = document.createTextNode("Question "+count);
+    number.appendChild(text);
+    form.appendChild(number);
+    form.appendChild(document.createElement("br"));
+
     question.type = "text";
-    question.name = "dynamicInput[]";
+    question.name = "q"+count;
+    question.id = "q"+count;
     question.placeholder = "Enter Question";
+    form.appendChild(question);
+    form.appendChild(document.createElement("br"))
+
+    for(let x=1;x<=n;x++) {
+        var question = document.createElement("input");
+        question.type = "text";
+        question.name = "q"+count+"-"+x;
+        question.id = "q"+count+"-"+x;
+        question.placeholder = "Enter Option "+x;
+        form.appendChild(question);
+        form.appendChild(document.createElement("br"));
+    }
 
     answer.type = "text";
-    answer.name = "dynamicInput[]";
+    answer.name = "a"+count;
+    answer.id = "a"+count;
     answer.placeholder = "Enter Answer";
-
-    // 4. Append the new input element to the container
-    form.appendChild(question);
     form.appendChild(answer);
-
-    // Optional: Add a line break for better formatting
+    form.appendChild(document.createElement("br"));
     form.appendChild(document.createElement("br"));
     count++;
 }
 
 function addMultAnswerQuestion() {
-        // 1. Get the container element where the new input will be added
-    var container = document.getElementById("container");
 
-    // 2. Create a new <input> element
-    var input = document.createElement("input");
+    var options = document.getElementById("options");
+    var n = options.value;
 
-    // 3. Set the attributes for the input element
-    input.type = "text"; // Specifies it's a text input box
-    input.name = "dynamicInput[]"; // Assigns a name for form submission
-    input.placeholder = "Enter text"; // Adds a placeholder
-    // You can add other attributes like id, class, etc.
-    // input.className = "my-class";
+    var number = document.createElement("label");
+    var answer = document.createElement("input");
 
-    // 4. Append the new input element to the container
-    container.appendChild(input);
+    number.for = "q"+count;
+    var text = document.createTextNode("Question "+count);
+    number.appendChild(text);
+    form.appendChild(number);
+    form.appendChild(document.createElement("br"));
 
-    // Optional: Add a line break for better formatting
-    container.appendChild(document.createElement("br"));
+    question.type = "text";
+    question.name = "q"+count;
+    question.id = "q"+count;
+    question.placeholder = "Enter Question";
+    form.appendChild(question);
+    form.appendChild(document.createElement("br"))
+
+    for(let x=1;x<=n;x++) {
+        var question = document.createElement("input");
+        question.type = "text";
+        question.name = "q"+count+"-"+x;
+        question.id = "q"+count+"-"+x;
+        question.placeholder = "Enter Option "+x;
+        form.appendChild(question);
+        form.appendChild(document.createElement("br"));
+    }
+
+    answer.type = "text";
+    answer.name = "a"+count;
+    answer.id = "a"+count;
+    answer.placeholder = "Enter Answer";
+    form.appendChild(answer);
+    form.appendChild(document.createElement("br"));
+    form.appendChild(document.createElement("br"));
+    count++;
 }

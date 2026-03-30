@@ -6,20 +6,32 @@
     </head>
     <body>
         <h1 class="mainheader">Create a Survey</h1>
+
+        <label for="inst">Instructions:</label><br>
+        <p id="inst">Add questions to the form with the three buttons below. When making a question, put the question's name in Enter Question and the correct answer in Enter Answer. For Multiple Choice/Answer questions, set the number of options in the Number of Options box before clicking the Add button. Each option can be named with its respective text box. For Multiple Answer questions, separate correct answers with a comma.</p>
+        <br>
+
         <button onclick="addTextQuestion()">Add Text Input Question</button>
+
         <button onclick="addMultChoiceQuestion()">Add Multiple Choice Question</button>
+
         <button onclick="addMultAnswerQuestion()">Add Multiple Answer Question</button><br><br>
+
+        <label for="options">Number of Options: (for Multiple Choice/Answer)</label><br>
+
+        <input type="number" id="options" min="1" max="20" size="1" value="2"></input><br><br>
+
         <form>
             <div id="form">
-                <!-- New input boxes will be added here -->
+                <!-- blank space for questions -->
             </div>
             <input type="submit">
         </form>
         <br>
 
         <button onclick="window.location.href='survey.html'">Back to Home</button>
-        
-        <script src="surveycreator.js"></script>
+
+        <script src="project.js"></script>
 
     </body>
 </html>
