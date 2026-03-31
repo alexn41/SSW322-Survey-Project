@@ -25,7 +25,12 @@
         </div>
 
         <br>
-        <button onclick="processForm()">Download Form</button><br><br>
+        <button onclick="processForm()">Download Survey</button><br>
+
+        <p id="imp_inst">Need to edit a survey you've made? Copy the text string from its .txt file and enter it here!</p>
+        <label for="import">Survey Text:</label><br>
+        <input type="text" id="import"></input><br>
+        <button onclick="importForm()">Import Survey</button><br><br>
         <button onclick="window.location.href='survey.html'">Back to Home</button>
 
     </body>
