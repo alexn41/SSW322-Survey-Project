@@ -8,3 +8,6 @@ function headerload(){
         element.textContent = "Take a Survey"
     }
 }
+function opentab(){
+    
+}
