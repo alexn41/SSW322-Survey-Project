@@ -5,24 +5,21 @@
         <script type="text/javascript" src="surveytaker.js"></script>
     </head>
     <body onload="headerload()">
-    <h1 class="mainheader">Current surveys you can take</h1>
+    <h1 class="mainheader">Current Surveys</h1>
         <p  id="surveytakerheader">
              There are no surveys for you to take right now
         </p>
-        <h4>Import survey</h4>
-        <form action="/upload" method="post" enctype="multipart/form-data">
-        <label for="file-upload" class="form-label">Select file:</label>
-        <input
-            type="file"
-            id="file-upload"
-            name="file"
-            accept=".txt"
-            aria-describedby="file-help"
-        />
-        <div id="file-help" class="form-text">Accepted file formats: TXT (max 10MB)</div>
-        <button id="button" onclick="opentab()" onclick open type="submit">Upload File </button>
-        </form>
-        </a>
+
+        <div id="form">
+            <!-- blank space for questions -->
+        </div>
+
+        <p id="score"></p>
+
+        <h4>Import Survey</h4>
+        <p id="imp_inst">To import a survey, copy the text string from its .txt file and enter it here!</p>
+        <input type="text" id="import"></input><br>
+        <button onclick="importForm()">Import Survey</button><br><br>
         <br>
         <button onclick="window.location.href='survey.html'">Back to Home</button>
     </body>
