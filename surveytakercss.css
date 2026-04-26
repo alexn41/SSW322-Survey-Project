@@ -31,10 +31,12 @@ p{
     justify-content: center;
     align-items: center;
     text-align: center;
+    font-family: "Monaco", monospace;
 }
 
 h4{
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: "Monaco", monospace;
 }
