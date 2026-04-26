@@ -1,10 +1,13 @@
 body{
-    background-color: white;
+    background-color: rgb(76, 219, 183);
 }
 
 .mainheader{
     color: blue;
-    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
 .hiddentext{
@@ -12,5 +15,30 @@ body{
 }
 
 #instrux{
-    border-style: solid
+    border-style: solid;
+    border-radius: 5px;
+    
+}
+
+#instlabel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#inst{
+    text-align: center;
+}
+
+button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
