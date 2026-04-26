@@ -4,7 +4,7 @@ body{
 
 .mainheader{
     color: rgb(61, 67, 155);
-    font-family: Garamond, serif;
+    font-family: "Monaco", monospace;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,7 +12,7 @@ body{
 
 .subheader{
     color: rgb(55, 106, 216);
-    font-family: Garamond, serif;
+    font-family: "Monaco", monospace;
     display: flex;
     justify-content: center;
     align-items: center;
