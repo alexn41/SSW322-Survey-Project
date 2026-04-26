@@ -10,6 +10,28 @@ body{
 
 }
 
+#words{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#options{
+    display: block;
+    margin : 0 auto;
+}
+
+#surveytext{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#import{
+    display: block;
+    margin : 0 auto;
+}
+
 .wrapper {
     text-align: center;
 }
