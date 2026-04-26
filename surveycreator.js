@@ -123,31 +123,6 @@ function addMultAnswerQuestion() {
     count++;
 }
 
-function toggleAnswers() {
-
-    var form = document.getElementById("form");
-    var elements = form.children;
-    var toggle = document.getElementById("answers");
-    var state = toggle.textContent;
-
-    if (state == "Disable Answers") {
-        answers = 0
-        toggle.textContent = "Enable Answers"
-    } else {
-        answers = 1
-        toggle.textContent = "Disable Answers"
-    }
-
-    console.log("a")
-
-    for(let x=0;x<elements.length;x++) {
-        if (elements[x].name.charAt(1) == "a") {
-            console.log(elements[x].name)
-        }
-    }
-
-}
-
 function processForm() {
 
     var form = document.getElementById("form");
