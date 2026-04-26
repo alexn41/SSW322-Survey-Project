@@ -22,7 +22,6 @@ function importForm() {
         return;
     }
     var text = decrypt(evil_text, key)
-    console.log(text)
     form.replaceChildren();
     var data = text.split("|")
     var count = 1
@@ -111,7 +110,7 @@ function importForm() {
     submit.innerText = "Submit Answers";
     submit.onclick = scoreForm;
     form.appendChild(submit);
-
+    console.log(answers);
 }
 
 function decrypt(encodedText, key) {
@@ -137,7 +136,7 @@ function scoreForm() {
     var form = document.getElementById("form");
     var elements = form.children;
     for(let x=0;x<elements.length;x++) {
-
+        
     }
 
     var score = document.getElementById("score");
