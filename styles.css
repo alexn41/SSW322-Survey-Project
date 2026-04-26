@@ -10,6 +10,21 @@ body{
 
 }
 
+#form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper {
+    text-align: center;
+}
+
+.button {
+    position: absolute;
+    width: 90px;
+}
+
 .hiddentext{
     display: none;
 }
@@ -28,12 +43,6 @@ body{
 
 #inst{
     text-align: center;
-}
-
-button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 p{

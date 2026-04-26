@@ -12,6 +12,7 @@
             <p id="inst">Add questions to the form with the three buttons below. When making a question, put the question's name in Enter Question and the correct answer in Enter Answer. For Multiple Choice/Answer questions, set the number of options in the Number of Options box before clicking the Add button. Each option can be named with its respective text box. For Multiple Answer questions, separate correct answers with a comma. Once you are done, click the Download Form button to receive a text file containing the form.</p>
         </div>
 
+        <div class="wrapper">
         <button id="answers" onclick="toggleAnswers()">Disable Answers</button><br><br>
 
         <button onclick="addTextQuestion()">Add Text Input Question</button>
@@ -19,6 +20,7 @@
         <button onclick="addMultChoiceQuestion()">Add Multiple Choice Question</button>
 
         <button onclick="addMultAnswerQuestion()">Add Multiple Answer Question</button><br><br>
+        </div>
 
         <label for="options">Number of Options: (for Multiple Choice/Answer)</label><br>
         <input type="number" id="options" min="1" max="20" size="1" value="2"></input><br><br>
@@ -28,13 +30,17 @@
         </div>
 
         <br>
+        <div class="wrapper">
         <button onclick="processForm()">Download Survey</button><br>
+        </div>
 
         <p id="imp_inst">Need to edit a survey you've made? Copy the text string from its .txt file and enter it here!</p>
         <label for="import">Survey Text:</label><br>
         <input type="text" id="import"></input><br>
+        <div class="wrapper">
         <button onclick="importForm()">Import Survey</button><br><br>
         <button onclick="window.location.href='survey.html'">Back to Home</button>
+        </div>
 
     </body>
 </html>
