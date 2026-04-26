@@ -1,5 +1,6 @@
 var count = 1
 var answers = 1
+var key = "wenew"
 
 function addTextQuestion() {
 
@@ -128,6 +129,7 @@ function toggleAnswers() {
     var elements = form.children;
     var toggle = document.getElementById("answers");
     var state = toggle.textContent;
+
     if (state == "Disable Answers") {
         answers = 0
         toggle.textContent = "Enable Answers"
@@ -136,11 +138,11 @@ function toggleAnswers() {
         toggle.textContent = "Disable Answers"
     }
 
+    console.log("a")
+
     for(let x=0;x<elements.length;x++) {
-        if (answers == 0 && elements[x].name.charAt(1) == "a") {
-            elements[x].hidden == true;
-        } else if (answers == 0 && elements[x].name.charAt(1) == "a") {
-            elements[x].hidden == false;
+        if (elements[x].name.charAt(1) == "a") {
+            console.log(elements[x].name)
         }
     }
 
@@ -159,7 +161,8 @@ function processForm() {
     }
 
     var result = data.join('|')
-    const blob = new Blob([result], {type: 'text/plain'});
+    var encrypted = encrypt(result, key)
+    const blob = new Blob([encrypted], {type: 'text/plain'});
     const anchor = document.createElement('a');
 
     anchor.href = URL.createObjectURL(blob);
@@ -168,6 +171,23 @@ function processForm() {
     anchor.click();
     document.body.removeChild(anchor);
     URL.revokeObjectURL(anchor.href);
+}
+
+function encrypt(text, key) {
+  let result = '';
+
+  for (let i = 0; i < text.length; i++) {
+    const textChar = text.charCodeAt(i);
+    const keyChar = key.charCodeAt(i % key.length);
+
+    // Shift character code and wrap within Unicode range
+    const encryptedChar = (textChar + keyChar) % 65535;
+
+    result += String.fromCharCode(encryptedChar);
+  }
+
+  // Encode to base64 for safe transport
+  return btoa(result);
 }
 
 function importForm() {

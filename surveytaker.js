@@ -1,5 +1,6 @@
 var answers = [];
 var state;
+var key = "wenew"
 
 function headerload(){
     const element = document.getElementById("surveytakerheader")
@@ -16,13 +17,20 @@ function importForm() {
 
     var form = document.getElementById("form");
     var doc = document.getElementById("import");
-    var text = String(doc.value);
+    var evil_text = String(doc.value);
+    console.log(evil_text)
+    if(evil_text.length == 0) {
+        return;
+    }
+    var text = decrypt(evil_text, key)
+    form.replaceChildren();
     var data = text.split("|")
     var count = 1
     for(let s=0;s<data.length;s++) {
         var segment = data[s].split(",")
-        switch(segment[0].length) {
-            case 3: // text input question or any answer
+        var true_len = segment[0].length - String(count).length
+        switch(true_len) {
+            case 2: // text input question or any answer
                 if(segment[0].charAt(1) == "q") { // text input question
                     var number = document.createElement("label");
                     number.for = "#q"+count;
@@ -46,7 +54,7 @@ function importForm() {
                     count++;
                     break;
                 }
-            case 4: // mult. question
+            case 3: // mult. question
                 var number = document.createElement("label");
                 number.for = "#q"+count;
                 var text = document.createTextNode("Question "+count+": "+segment[1]);
@@ -56,7 +64,7 @@ function importForm() {
 
                 state = segment[0].charAt(3); // stores multiple choice or answer
                 break;
-            case 5: // mult. option
+            case 4: // mult. option
                 if(state == "c") { //multiple choice option
 
                     var question = document.createElement("input");
@@ -104,6 +112,24 @@ function importForm() {
     submit.onclick = scoreForm;
     form.appendChild(submit);
 
+}
+
+function decrypt(encodedText, key) {
+  let text = atob(encodedText);
+  let result = '';
+
+  for (let i = 0; i < text.length; i++) {
+    const textChar = text.charCodeAt(i);
+    const keyChar = key.charCodeAt(i % key.length);
+
+    // Reverse the shift
+    let decryptedChar = textChar - keyChar;
+    if (decryptedChar < 0) decryptedChar += 65535;
+
+    result += String.fromCharCode(decryptedChar);
+  }
+
+  return result;
 }
 
 function scoreForm() {
