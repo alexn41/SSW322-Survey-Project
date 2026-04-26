@@ -3,7 +3,15 @@ body{
 }
 
 .mainheader{
-    color: rgb(4, 178, 190);
+    color: rgb(61, 67, 155);
+    font-family: Garamond, serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.subheader{
+    color: rgb(55, 106, 216);
     font-family: Garamond, serif;
     display: flex;
     justify-content: center;
