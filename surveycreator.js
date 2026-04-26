@@ -1,4 +1,5 @@
 var count = 1
+var answers = 1
 
 function addTextQuestion() {
 
@@ -119,6 +120,30 @@ function addMultAnswerQuestion() {
     form.appendChild(document.createElement("br"));
     form.appendChild(document.createElement("br"));
     count++;
+}
+
+function toggleAnswers() {
+
+    var form = document.getElementById("form");
+    var elements = form.children;
+    var toggle = document.getElementById("answers");
+    var state = toggle.textContent;
+    if (state == "Disable Answers") {
+        answers = 0
+        toggle.textContent = "Enable Answers"
+    } else {
+        answers = 1
+        toggle.textContent = "Disable Answers"
+    }
+
+    for(let x=0;x<elements.length;x++) {
+        if (answers == 0 && elements[x].name.charAt(1) == "a") {
+            elements[x].hidden == true;
+        } else if (answers == 0 && elements[x].name.charAt(1) == "a") {
+            elements[x].hidden == false;
+        }
+    }
+
 }
 
 function processForm() {
