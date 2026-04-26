@@ -1,9 +1,10 @@
 body{
-    background-color: white;
+    background-color: rgb(76, 219, 183);
 }
 
 .mainheader{
     color: black;
+    font-family: Garamond, serif;
 }
 
 .hiddentext{
