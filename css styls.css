@@ -5,7 +5,19 @@ body{
 .mainheader{
     color: black;
     font-family: Garamond, serif;
+    display: flex;
+    justify-content: center;
     align-items: center;
+}
+
+.wrapper {
+    text-align: center;
+}
+
+.button {
+    position: absolute;
+    width: 90px;
+    height: 40px;
 }
 
 .hiddentext{
