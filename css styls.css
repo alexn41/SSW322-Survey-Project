@@ -5,6 +5,7 @@ body{
 .mainheader{
     color: black;
     font-family: Garamond, serif;
+    align-items: center;
 }
 
 .hiddentext{
