@@ -1,9 +1,9 @@
 body{
-    background-color: rgb(4, 178, 190);
+    background-color: rgb(163, 224, 220);
 }
 
 .mainheader{
-    color: blue;
+    color: rgb(4, 178, 190);
     display: flex;
     justify-content: center;
     align-items: center;

@@ -1,9 +1,9 @@
 body{
-    background-color: rgb(4, 178, 190);
+    background-color: rgb(163, 224, 220);
 }
 
 .mainheader{
-    color: black;
+    color: rgb(4, 178, 190);
     font-family: Garamond, serif;
     display: flex;
     justify-content: center;
