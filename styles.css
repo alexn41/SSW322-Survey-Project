@@ -3,11 +3,10 @@ body{
 }
 
 .mainheader{
-    color: blue;
+    color: rgb(4, 178, 190);
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 #words{
