@@ -4,8 +4,13 @@ body{
 
 .mainheader{
     color: blue;
+    
 }
 
 .hiddentext{
     display: none;
+}
+
+#instrux{
+    border-style: solid
 }
