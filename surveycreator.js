@@ -62,8 +62,8 @@ function addMultChoiceQuestion() {
     for(let x=1;x<=n;x++) {
         var question = document.createElement("input");
         question.type = "text";
-        question.name = "#q"+count+"-"+x;
-        question.id = "#q"+count+"-"+x;
+        question.name = "#q"+count+"x"+x;
+        question.id = "#q"+count+"x"+x;
         question.placeholder = "Enter Option "+x;
         form.appendChild(question);
         form.appendChild(document.createElement("br"));
@@ -106,8 +106,8 @@ function addMultAnswerQuestion() {
     for(let x=1;x<=n;x++) {
         var question = document.createElement("input");
         question.type = "text";
-        question.name = "#q"+count+"-"+x;
-        question.id = "#q"+count+"-"+x;
+        question.name = "#q"+count+"x"+x;
+        question.id = "#q"+count+"x"+x;
         question.placeholder = "Enter Option "+x;
         form.appendChild(question);
         form.appendChild(document.createElement("br"));
@@ -188,11 +188,11 @@ function importForm() {
     var form = document.getElementById("form");
     var doc = document.getElementById("import");
     var evil_text = String(doc.value);
-    console.log(evil_text)
     if(evil_text.length == 0) {
         return;
     }
     var text = decrypt(evil_text, key)
+    console.log(text)
     form.replaceChildren();
     var data = text.split("|")
     var count = 1
@@ -201,10 +201,10 @@ function importForm() {
         var true_len = segment[0].length - String(count).length
         switch(true_len) {
             case 2: // text input question or any answer
-                if(segment[0].charAt(1) == "q") { // text input question
+                if(segment[0].charAt(1) == "q") {
                     var number = document.createElement("label");
                     number.for = "#q"+count;
-                    var text = document.createTextNode("Question "+count+": "+segment[1]);
+                    var text = document.createTextNode("Question "+count);
                     number.appendChild(text);
                     form.appendChild(number);
                     form.appendChild(document.createElement("br"));
@@ -213,13 +213,19 @@ function importForm() {
                     question.type = "text";
                     question.name = "#q"+count;
                     question.id = "#q"+count;
-                    question.placeholder = "Enter Answer";
+                    question.value = segment[1];
                     form.appendChild(question);
                     form.appendChild(document.createElement("br"))
                     break;
                 }
-                else { // answer
-                    answers.push(segment[1])
+                else {
+                    var answer = document.createElement("input");
+                    answer.type = "text";
+                    answer.name = "#a"+count;
+                    answer.id = "#a"+count;
+                    answer.value = segment[1];
+                    form.appendChild(answer);
+                    form.appendChild(document.createElement("br"));
                     form.appendChild(document.createElement("br"));
                     count++;
                     break;
@@ -227,52 +233,30 @@ function importForm() {
             case 3: // mult. question
                 var number = document.createElement("label");
                 number.for = "#q"+count;
-                var text = document.createTextNode("Question "+count+": "+segment[1]);
+                var text = document.createTextNode("Question "+count);
                 number.appendChild(text);
                 form.appendChild(number);
                 form.appendChild(document.createElement("br"));
 
-                state = segment[0].charAt(3); // stores multiple choice or answer
+                var question = document.createElement("input");
+                question.type = "text";
+                question.name = "#q"+count+segment[0].charAt(3);
+                question.id = "#q"+count+segment[0].charAt(3);
+                question.value = segment[1];
+                form.appendChild(question);
+                form.appendChild(document.createElement("br"));
                 break;
             case 4: // mult. option
-                if(state == "c") { //multiple choice option
-
-                    var question = document.createElement("input");
-                    question.type = "radio";
-                    question.name = "#q"+count+"0";
-                    question.id = "#q"+count+segment[0].charAt(4);
-                    question.value = segment[1];
-                    form.appendChild(question);
-
-                    var number = document.createElement("label");
-                    number.for = "#q"+count+segment[0].charAt(4);
-                    var text = document.createTextNode(segment[1]);
-                    number.appendChild(text);
-                    form.appendChild(number);
-                    form.appendChild(document.createElement("br"));
-                    break;
-
-                } else { //multiple answer option
-
                 var question = document.createElement("input");
-                question.type = "checkbox";
+                question.type = "text";
                 question.name = "#q"+count+segment[0].charAt(4);
                 question.id = "#q"+count+segment[0].charAt(4);
                 question.value = segment[1];
                 form.appendChild(question);
-
-                var number = document.createElement("label");
-                number.for = "#q"+count+segment[0].charAt(4);
-                var text = document.createTextNode(segment[1]);
-                number.appendChild(text);
-                form.appendChild(number);
                 form.appendChild(document.createElement("br"));
-
                 break;
-
-                }
             default:
                 break;
         }
-    }
+    }  
 }

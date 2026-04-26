@@ -18,11 +18,11 @@ function importForm() {
     var form = document.getElementById("form");
     var doc = document.getElementById("import");
     var evil_text = String(doc.value);
-    console.log(evil_text)
     if(evil_text.length == 0) {
         return;
     }
     var text = decrypt(evil_text, key)
+    console.log(text)
     form.replaceChildren();
     var data = text.split("|")
     var count = 1
