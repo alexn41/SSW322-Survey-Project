@@ -40,3 +40,19 @@ h4{
     align-items: center;
     font-family: "Monaco", monospace;
 }
+
+.question {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 2px solid transparent;
+}
+
+.correct {
+  border-color: green;
+  background-color: #e6ffe6;
+}
+
+.incorrect {
+  border-color: red;
+  background-color: #ffe6e6;
+}
