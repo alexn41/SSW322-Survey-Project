@@ -1,11 +1,12 @@
-var answers = [];
-var state;
-var key = "wenew"
-var count = 1;
+let state;
+let key = "wenew"
+let count = 1;
+let currentQuestion = null;
+let currentType = null;
 
 function headerload(){
     const element = document.getElementById("surveytakerheader")
-    var surveys = 0
+    let surveys = 0
 
     if(surveys == 0){
         element.textContent = "There are no surveys to take. Try making or importing a survey!";
@@ -16,92 +17,111 @@ function headerload(){
 
 function importForm() {
 
-    var form = document.getElementById("form");
-    var doc = document.getElementById("import");
-    var evil_text = String(doc.value);
+    let form = document.getElementById("form");
+    let doc = document.getElementById("import");
+    let evil_text = String(doc.value);
     if(evil_text.length == 0) {
         return;
     }
-    var text = decrypt(evil_text, key)
+    let text = decrypt(evil_text, key)
     form.replaceChildren();
-    var data = text.split("|")
+    let data = text.split("|")
     count = 1;
     for(let s=0;s<data.length;s++) {
-        var segment = data[s].split(",")
-        var true_len = segment[0].length - String(count).length
+        let segment = data[s].split(",")
+        let true_len = segment[0].length - String(count).length
         switch(true_len) {
-            case 2: // text input question or any answer
-                if(segment[0].charAt(1) == "q") { // text input question
-                    var number = document.createElement("label");
-                    number.id = "#l"+count;
-                    number.for = "#q"+count;
-                    var text = document.createTextNode("Question "+count+": "+segment[1]);
-                    number.appendChild(text);
-                    form.appendChild(number);
-                    form.appendChild(document.createElement("br"));
+            case 1: // text input question or any answer
+                if(segment[0].charAt(0) == "q") { // text input question
+                    let qDiv = document.createElement("div");
+                    qDiv.classList.add("question");
+                    qDiv.dataset.type = "text";
 
-                    var question = document.createElement("input");
+                    let number = document.createElement("label");
+                    number.innerText = "Question " + count + ": " + segment[1];
+
+                    qDiv.appendChild(number);
+                    qDiv.appendChild(document.createElement("br"));
+
+                    let question = document.createElement("input");
                     question.type = "text";
-                    question.name = "#q"+count;
-                    question.id = "#q"+count;
-                    question.placeholder = "Enter Answer";
-                    form.appendChild(question);
-                    form.appendChild(document.createElement("br"))
+                    question.name = "q"+count;
+                    question.id = "q"+count;
+
+                    qDiv.appendChild(question);
+
+                    form.appendChild(qDiv);
+
+                    currentQuestion = qDiv;
+                    currentType = "text";
                     break;
                 }
                 else { // answer
-                    answers.push(segment[1])
-                    form.appendChild(document.createElement("br"));
+                    if (currentQuestion) {
+                        currentQuestion.dataset.answer = segment[1];
+                    }
                     count++;
+                    form.appendChild(document.createElement("br"));
                     break;
                 }
-            case 3: // mult. question
-                var number = document.createElement("label");
-                number.id = "#l"+count;
-                number.for = "#q"+count;
-                var text = document.createTextNode("Question "+count+": "+segment[1]);
-                number.appendChild(text);
-                form.appendChild(number);
-                form.appendChild(document.createElement("br"));
+            case 2: // mult. question
+                let qDiv = document.createElement("div");
+                qDiv.classList.add("question");
 
-                state = segment[0].charAt(3); // stores multiple choice or answer
+                let number = document.createElement("label");
+                number.innerText = "Question " + count + ": " + segment[1];
+
+                qDiv.appendChild(number);
+                qDiv.appendChild(document.createElement("br"));
+
+                form.appendChild(qDiv);
+
+                currentQuestion = qDiv;
+
+                state = segment[0].charAt(2);
+
+                if (state == "c") {
+                    currentQuestion.dataset.type = "radio";
+                } else {
+                    currentQuestion.dataset.type = "checkbox";
+                }
+                form.appendChild(document.createElement("br"));
                 break;
-            case 4: // mult. option
+            case 3: // mult. option
                 if(state == "c") { //multiple choice option
 
-                    var question = document.createElement("input");
+                    let question = document.createElement("input");
                     question.type = "radio";
-                    question.name = "#q"+count+"x0";
-                    question.id = "#q"+count+"x"+segment[0].charAt(4);
+                    question.name = "q"+count+"x0";
+                    question.id = "q"+count+"x"+segment[0].charAt(3);
                     question.value = segment[1];
-                    form.appendChild(question);
+                    currentQuestion.appendChild(question);
 
-                    var number = document.createElement("label");
-                    number.id = "#l"+count+"x"+segment[0].charAt(4);
-                    number.for = "#q"+count+"x"+segment[0].charAt(4);
-                    var text = document.createTextNode(segment[1]);
+                    let number = document.createElement("label");
+                    number.id = "l"+count+"x"+segment[0].charAt(3);
+                    number.for = "q"+count+"x"+segment[0].charAt(3);
+                    let text = document.createTextNode(segment[1]);
                     number.appendChild(text);
-                    form.appendChild(number);
-                    form.appendChild(document.createElement("br"));
+                    currentQuestion.appendChild(number);
+                    currentQuestion.appendChild(document.createElement("br"));
                     break;
 
                 } else { //multiple answer option
 
-                var question = document.createElement("input");
+                let question = document.createElement("input");
                 question.type = "checkbox";
-                question.name = "#q"+count+"x"+segment[0].charAt(4);
-                question.id = "#q"+count+"x"+segment[0].charAt(4);
+                question.name = "q"+count+"x"+segment[0].charAt(3);
+                question.id = "q"+count+"x"+segment[0].charAt(3);
                 question.value = segment[1];
-                form.appendChild(question);
+                currentQuestion.appendChild(question);
 
-                var number = document.createElement("label");
-                number.id = "#l"+count+"x"+segment[0].charAt(4);
-                number.for = "#q"+count+"x"+segment[0].charAt(4);
-                var text = document.createTextNode(segment[1]);
+                let number = document.createElement("label");
+                number.id = "l"+count+"x"+segment[0].charAt(3);
+                number.for = "q"+count+"x"+segment[0].charAt(3);
+                let text = document.createTextNode(segment[1]);
                 number.appendChild(text);
-                form.appendChild(number);
-                form.appendChild(document.createElement("br"));
-
+                currentQuestion.appendChild(number);
+                currentQuestion.appendChild(document.createElement("br"));
                 break;
 
                 }
@@ -110,10 +130,10 @@ function importForm() {
         }
     }
 
-    var submit = document.createElement("button");
+    let submit = document.createElement("button");
     submit.type = "button";
     submit.innerText = "Submit Answers";
-    submit.onclick = scoreForm;
+    submit.onclick = gradeSurvey;
     form.appendChild(submit);
     console.log(form);
 }
@@ -136,110 +156,86 @@ function decrypt(encodedText, key) {
   return result;
 }
 
-function scoreForm() {
+function gradeSurvey() {
+  let questions = document.querySelectorAll(".question");
+  let score = 0;
 
-    var form = document.getElementById("form");
-    var elements = form.children;
-    var q_num = 1;
-    var correct = 0;
-    var response;
-    var check = 0;
-    var search;
-    var lab;
-    var ans_count = [];
+  questions.forEach(q => {
+    let type = q.dataset.type;
+    let correct = q.dataset.answer.trim();
 
+    q.classList.remove("correct", "incorrect");
 
-    // if all answers are empty, skip scoring process
-    for(let x=0;x<answers.length;x++) {
-        if(answers[x] != "") {
-            check += 1;
+    let isCorrect = false;
+    let questionScore = 0; // allows partial credit
+
+    // --- TEXT ---
+    if (type === "text") {
+      let input = q.querySelector("input[type='text']");
+      let user = input.value.trim().toLowerCase();
+
+      if (user === correct.toLowerCase()) {
+        isCorrect = true;
+        questionScore = 1;
+      }
+
+      input.disabled = true;
+    }
+
+    // --- RADIO ---
+    if (type === "radio") {
+      let selected = q.querySelector("input[type='radio']:checked");
+
+      if (selected && selected.value === correct) {
+        isCorrect = true;
+        questionScore = 1;
+      }
+
+      // disable all radios
+      q.querySelectorAll("input[type='radio']").forEach(r => r.disabled = true);
+    }
+
+    // --- CHECKBOX (partial credit) ---
+    if (type === "checkbox") {
+      let selected = q.querySelectorAll("input[type='checkbox']:checked");
+      let userAnswers = Array.from(selected).map(cb => cb.value);
+
+      let correctAnswers = correct.split(";");
+
+      let points = 0;
+
+      // +1 for correct selections
+      userAnswers.forEach(ans => {
+        if (correctAnswers.includes(ans)) {
+          points++;
         }
-    }
-    if(check == 0) {
-        var score = document.getElementById("score");
-        score.innerText = "Survey submitted!";
-        return;
+      });
+
+      // Clamp to 0 minimum
+      if (points < 0) points = 0;
+
+      // Normalize (divide by total correct answers)
+      questionScore = points / correctAnswers.length;
+
+      // Fully correct?
+      if (questionScore === 1) {
+        isCorrect = true;
+      }
+
+      // disable all checkboxes
+      q.querySelectorAll("input[type='checkbox']").forEach(cb => cb.disabled = true);
     }
 
-    // count how many inputs are in each question
-    for(let x=0;x<elements.length;x++) {
-        if(elements[x].tagName == "INPUT") {
-            var h = elements[x].id.charAt(2);
-            ans_count[h] += 1;
-        }
-    }
+    // Add to total score
+    score += questionScore;
 
-    // iterate through form, find each input and determine if the answer is correct
-    for(let x=0;x<elements.length;x++) {
-        if(elements[x].tagName == "INPUT") {
-            switch(elements[x].type) {
-                case "text": // text input question
-                    response = elements[x].value;
-                    search = "#l"+q_num;
-                    console.log(search)
-                    lab = document.getElementById(search);
-                    if(answers[q_num-1] != "") {
-                        if(response == answers[q_num-1]) {
-                         correct += 1;
-                            lab.textContent += " [O]"
-                        } else {
-                            lab.textContent += " [X]"
-                        }
-                    }
-                    q_num++;
-                    break;
-                case "radio": // multiple choice question
-                    if(elements[x].checked) {
-                        search = "#l"+q_num+"x"+elements[x].id.charAt(4);
-                        console.log(search)
-                        lab = document.getElementById(search);
-                        if(answers[q_num-1] != "") {
-                            if(lab.textContent == answers[q_num-1]) {
-                                correct += 1;
-                                lab.textContent += " [O]"
-                            } else {
-                                lab.textContent += " [X]"
-                            }
-                        }
-                    }
-                    if(ans_count[q_num] <= 1) {
-                        q_num++;
-                    } else {
-                        ans_count[q_num] -= 1;
-                    }
-                    break;
-                case "checkbox": // multiple answer question
-                    var mult_answers = answers[q_num-1].split(";")
-                    search = "#l"+q_num+"x"+elements[x].id.charAt(4);
-                    console.log(search)
-                    lab = document.getElementById(search);
-                    if(elements[x].checked) {
-                        for(y=0;y<mult_answers.length;y++) {
-                            if(lab.textContent == answers[q_num-1]) {
-                            correct += (1/mult_answers.length);
-                            lab.textContent += " [O]";
-                            }
-                        }
-                    } else {
-                        for(y=0;y<mult_answers.length;y++) {
-                            lab.textContent += " [X]";
-                        }
-                    }
-                    if(ans_count[q_num] <= 1) {
-                        q_num++;
-                    } else {
-                        ans_count[q_num] -= 1;
-                    }
-                    break;
-            }
-        }
+    // Visual feedback
+    if (isCorrect) {
+      q.classList.add("correct");
+    } else {
+      q.classList.add("incorrect");
     }
-    
-    console.log("Correct: "+correct)
-    console.log("Total: "+check)
-    var final = (correct/check) * 100;
-    final = final.toFixed(2);
-    var score = document.getElementById("score");
-    score.innerText = "Survey submitted! Your score is: "+final+"%";
+  });
 
+  alert("Score: " + score.toFixed(2) + " / " + questions.length);
 }
