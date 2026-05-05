@@ -10,6 +10,14 @@ body{
     font-family: "Monaco", monospace;
 }
 
+.subheader{
+    color: rgb(55, 106, 216);
+    font-family: "Monaco", monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #words{
     display: flex;
     justify-content: center;
@@ -73,6 +81,13 @@ p{
     font-family: "Monaco", monospace;
 }
 
+h4{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Monaco", monospace;
+}
+
 .question {
   padding: 10px;
   margin-bottom: 10px;
@@ -87,4 +102,9 @@ p{
 .incorrect {
   border-color: red;
   background-color: #ffe6e6;
+}
+
+.partial {
+  border-color: rgb(255, 166, 0);
+  background-color: #fff8e6;
 }

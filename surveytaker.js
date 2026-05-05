@@ -164,9 +164,10 @@ function gradeSurvey() {
     let type = q.dataset.type;
     let correct = q.dataset.answer.trim();
 
-    q.classList.remove("correct", "incorrect");
+    q.classList.remove("correct", "incorrect", "partial");
 
     let isCorrect = false;
+    let isPartial = false;
     let questionScore = 0; // allows partial credit
 
     // --- TEXT ---
@@ -220,6 +221,8 @@ function gradeSurvey() {
       // Fully correct?
       if (questionScore === 1) {
         isCorrect = true;
+      } else if (questionScore > 0) {
+        isPartial = true;
       }
 
       // disable all checkboxes
@@ -232,6 +235,8 @@ function gradeSurvey() {
     // Visual feedback
     if (isCorrect) {
       q.classList.add("correct");
+    } else if (isPartial) {
+      q.classList.add("partial");
     } else {
       q.classList.add("incorrect");
     }
